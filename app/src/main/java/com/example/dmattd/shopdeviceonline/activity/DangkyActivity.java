@@ -47,7 +47,7 @@ public class DangkyActivity extends AppCompatActivity {
        if (CheckConnection.haveNetworkConnection(getApplicationContext())){
            EventButton();
        }else {
-           CheckConnection.ShowToast_short(getApplicationContext(), "ban hay kt ket noi");
+           CheckConnection.ShowToast_short(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối");
        }
     }
 
@@ -61,114 +61,32 @@ public class DangkyActivity extends AppCompatActivity {
                 final String matkhau = edtmkhau.getText().toString().trim();
                 final String xacnhanmatkhau = edtnhaplaimkhau.getText().toString().trim();
 
-//                if(ten.length() >0 && sdt.length() > 0 && diachi.length() >0 && matkhau.length() >0 && xacnhanmatkhau.length() >0){
-//                    final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.nguoidung, new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            if(response.equals("isExisted")){
-//                                Log.d("idngdung","thông báo" + response );
-//                                Toast.makeText(getApplicationContext(), "Số đt đã tồn tại", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            if(Integer.parseInt(response) > 0){
-//
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            Log.d("onErrorResponse", "onErrorResponse: lỗi đăng ký");
-//                            Toast.makeText(getApplicationContext(), "sai mật khẩu", Toast.LENGTH_SHORT).show();
-//
-//
-//                        }
-//                    }){
-//                        @Override
-//                        protected Map<String, String> getParams() throws AuthFailureError {
-//                            HashMap<String, String> hashMap = new HashMap<String, String>();
-//                            hashMap.put("ten", ten);
-//                            hashMap.put("sdt", sdt);
-//                            hashMap.put("diachi", diachi);
-//                            if(matkhau.equals(xacnhanmatkhau)){
-//                                hashMap.put("matkhau", matkhau);
-//                            }
-//                            return hashMap;
-//                        }
-//                    };
-//
-//                    requestQueue.add(stringRequest);
-//
-//                }else {
-//                    CheckConnection.ShowToast_short(getApplicationContext(),"Vui lòng kiểm tra lại các thông tin");
-//                }
-
-
-
-
-
-                if(ten.length() >0 && sdt.length() > 0 && diachi.length() >0 && matkhau.length() >0 && xacnhanmatkhau.length() >0 ){
-                    // doc du lieu
+                if(ten.length() >0 && sdt.length() > 0 && diachi.length() >0 && matkhau.length() >0 && xacnhanmatkhau.length() >0){
                     final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.nguoidung, new Response.Listener<String>() {
                         @Override
-                        public void onResponse(final String idkhachhang) {
-                            Log.d("mak", "onResponse: nguoi dung");
-                            Log.d("makh", idkhachhang);
-                            if(Integer.parseInt(idkhachhang) > 0){
-                                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                                StringRequest request = new StringRequest(Request.Method.POST, Server.Duongdanchitietdonhang, new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        if(response.equals("1")){
-                                            MainActivity.manggiohang.clear();
-                                            CheckConnection.ShowToast_short(getApplicationContext(), "ban da them du lieu gio hang thanh cong");
+                        public void onResponse(String response) {
+                            if(response.equals("isExisted")){
+                                Log.d("TTT", "onResponse: " +response);
 
-                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(intent);
-                                            CheckConnection.ShowToast_short(getApplicationContext(), "Moi ban tiep tuc mua hang");
-                                        }else {
-                                            CheckConnection.ShowToast_short(getApplicationContext(), "Du lieu gio hang cua ban da dk gui");
+                                Toast.makeText(getApplicationContext(), "Số điện thoại đã được dùng", Toast.LENGTH_SHORT).show();
+                            }else {
 
-                                        }
-                                    }
-                                }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Log.d("onErrorResponse", "onErrorResponse: loi roi");
+                                Log.d("TTT", "onResponse: " +response);
+                                Log.d("idngdung","thông báo" + response );
+                                Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(intent);
 
-                                    }
-                                }){
-                                    @Override
-                                    protected Map<String, String> getParams() throws AuthFailureError {
-                                        JSONArray jsonArray = new JSONArray();
-                                        for(int i = 0; i <MainActivity.manggiohang.size(); i++){
-                                            JSONObject jsonObject = new JSONObject();
-                                            try {
-                                                jsonObject.put("idkhachhang", idkhachhang);
-                                                jsonObject.put("idsanpham", MainActivity.manggiohang.get(i).getIdsp());
-                                                jsonObject.put("tensanpham", MainActivity.manggiohang.get(i).getTensp());
-                                                jsonObject.put("giasanpham", MainActivity.manggiohang.get(i).getGiasp());
-                                                jsonObject.put("soluongsanpham", MainActivity.manggiohang.get(i).getSoluongsp());
-
-
-                                            }catch (Exception e){
-                                                e.printStackTrace();
-                                            }
-                                            jsonArray.put(jsonObject);
-                                        }
-                                        HashMap<String,String> hashMap = new HashMap<String, String>();
-                                        hashMap.put("json", jsonArray.toString());
-                                        return hashMap;
-                                    }
-                                };
-                                queue.add(request);
                             }
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("onErrorResponse", "onErrorResponse: loi roi");
+                            Log.d("onErrorResponse", "onErrorResponse: lỗi đăng ký");
+                            Toast.makeText(getApplicationContext(), "sai mật khẩu", Toast.LENGTH_SHORT).show();
+
+
                         }
                     }){
                         @Override
@@ -179,25 +97,16 @@ public class DangkyActivity extends AppCompatActivity {
                             hashMap.put("diachi", diachi);
                             if(matkhau.equals(xacnhanmatkhau)){
                                 hashMap.put("matkhau", matkhau);
-                            }else{
-                                Log.d("mkhausai", "sai sai sai" + matkhau + " " + xacnhanmatkhau);
-                                Toast.makeText(getApplicationContext(), "Mat khau sai", Toast.LENGTH_SHORT).show();
                             }
                             return hashMap;
-
                         }
                     };
 
-
                     requestQueue.add(stringRequest);
+
                 }else {
-                    CheckConnection.ShowToast_short(getApplicationContext(), "ktra lai thong tin");
+                    CheckConnection.ShowToast_short(getApplicationContext(),"Vui lòng kiểm tra lại các thông tin");
                 }
-
-
-
-
-
             }
         });
     }

@@ -26,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dmattd.shopdeviceonline.R;
 import com.example.dmattd.shopdeviceonline.adapter.Sanpham1Adapter;
+import com.example.dmattd.shopdeviceonline.model.CheckStatusUser;
 import com.example.dmattd.shopdeviceonline.model.Sanpham;
 import com.example.dmattd.shopdeviceonline.util.CheckConnection;
 import com.example.dmattd.shopdeviceonline.util.Server;
@@ -46,7 +47,7 @@ public class Sanpham1Activity extends AppCompatActivity {
     Sanpham1Adapter sanpham1Adapter;
     ArrayList<Sanpham> mangsp1;
 
-    int idloaisp1 = 1;
+    int idloaisp1 = CheckStatusUser.idLoaiSanPham;
     int page = 1;
 
     View footerview;
@@ -65,7 +66,7 @@ public class Sanpham1Activity extends AppCompatActivity {
             Getdata(page);
             LoadMoreData();
         }else {
-            CheckConnection.ShowToast_short(getApplicationContext(), "Ban hay ktra ket noi");
+            CheckConnection.ShowToast_short(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối");
             finish();
         }
 

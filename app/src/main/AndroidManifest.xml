@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DangnhapActivity"></activity>
+        <activity android:name=".activity.LoaiSanPhamAcc"></activity>
+        <activity android:name=".activity.DangnhapActivity" />
         <activity android:name=".activity.DangkyActivity" />
         <activity android:name=".activity.Giohang" />
         <activity android:name=".activity.ChitietSanpham" />
@@ -24,7 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.Sanpham1Activity" />
-        <activity android:name=".activity.Sanpham2Activity" />
     </application>
 
 </manifest>

@@ -1,39 +1,39 @@
 package com.example.dmattd.shopdeviceonline.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dmattd.shopdeviceonline.R;
+import com.example.dmattd.shopdeviceonline.model.LoaiSanPham;
 import com.example.dmattd.shopdeviceonline.model.Loaisp;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class LoaispAdapter extends BaseAdapter {
-    ArrayList<Loaisp> arrayListLoaisp;
+public class LoaiSanPhamAdapter extends BaseAdapter {
+    ArrayList<LoaiSanPham> arrayListLoaiSanPham;
     Context context;
 
-    public LoaispAdapter(ArrayList<Loaisp> arrayListLoaisp, Context context) {
-        this.arrayListLoaisp = arrayListLoaisp;
+
+    public LoaiSanPhamAdapter(ArrayList<LoaiSanPham> arrayListLoaiSanPham, Context context) {
+        this.arrayListLoaiSanPham = arrayListLoaiSanPham;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return arrayListLoaisp.size();
+        return arrayListLoaiSanPham.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return arrayListLoaisp.get(i);
+        return arrayListLoaiSanPham.get(i);
     }
 
     @Override
@@ -42,36 +42,34 @@ public class LoaispAdapter extends BaseAdapter {
     }
 
     public class ViewHolder{
-        TextView txtTenloaisp;
-        ImageView imgLoaisp;
+        TextView txtTenLoaiSanPham;
+        ImageView imgLoaiSanPham;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder viewHolder = null;
-
+       ViewHolder viewHolder = null;
         if (viewHolder == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.dong_listview_loaisp, null);
+            view = inflater.inflate(R.layout.dong_loai_san_pham, null);
 
-            viewHolder.txtTenloaisp = view.findViewById(R.id.textviewLoaisp);
-            viewHolder.imgLoaisp = view.findViewById(R.id.imageviewLoaisp);
+            viewHolder.txtTenLoaiSanPham = view.findViewById(R.id.txtTenloaisanpham);
+            viewHolder.imgLoaiSanPham = view.findViewById(R.id.imageviewloaisanpham);
 
             // gan vao trong viewHolder
             view.setTag(viewHolder);
-       }else {
-            viewHolder = (ViewHolder) view.getTag();
+        }else {
+            viewHolder = (LoaiSanPhamAdapter.ViewHolder) view.getTag();
 
 
         }
-        Loaisp loaisp = (Loaisp) getItem(i);
-        viewHolder.txtTenloaisp.setText(loaisp.getTenloaisp());
-//        Log.d("MMM", "getView: " + loaisp.getTenloaisp());
-        Picasso.with(context).load(loaisp.getHinhanhloaisp())
+        LoaiSanPham loaiSanPham = (LoaiSanPham) getItem(i);
+        viewHolder.txtTenLoaiSanPham.setText(loaiSanPham.getTenLoaiSanPham());
+        Picasso.with(context).load(loaiSanPham.getHinhanhLoaiSanPham())
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.delete_button)
-                .into(viewHolder.imgLoaisp);
+                .into(viewHolder.imgLoaiSanPham);
 
         return view;
     }

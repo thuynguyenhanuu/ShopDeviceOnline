@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dmattd.shopdeviceonline.R;
+import com.example.dmattd.shopdeviceonline.model.CheckStatusUser;
 import com.example.dmattd.shopdeviceonline.util.CheckConnection;
 import com.example.dmattd.shopdeviceonline.util.Server;
 
@@ -65,6 +66,7 @@ public class DangnhapActivity extends AppCompatActivity {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdandangnhap, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            Log.d("abc", ""+response);
                             if(response != null && response.length() != 2) {
                                 String sdtoutput = "";
                                 String matkhauoutput = "";
@@ -73,6 +75,12 @@ public class DangnhapActivity extends AppCompatActivity {
 
                                     for (int i = 0; i < response.length(); i++) {
                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                                        // Lấy id người dùng
+                                        CheckStatusUser.idNgdung = jsonObject.getInt("id");
+                                        Log.d("ss", "idout " + CheckStatusUser.idNgdung);
+
+
                                         sdtoutput = jsonObject.getString("sdt");
                                         Log.d("TEST", "sdtout " + sdtoutput);
                                         matkhauoutput = jsonObject.getString("matkhau");
@@ -86,8 +94,10 @@ public class DangnhapActivity extends AppCompatActivity {
                                     if (sdtinput.equals(sdtoutput) && matkhauinput.equals(matkhauoutput)) {
 
                                         isLogin = true;
+                                        CheckStatusUser.isLogin = true;
                                         sdtMain = sdtoutput;
                                         passMain = matkhauoutput;
+
                                         Log.d("ok", "trùng khớp");
                                         CheckConnection.ShowToast_short(getApplicationContext(), "Đăng nhập thành công");
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -95,11 +105,9 @@ public class DangnhapActivity extends AppCompatActivity {
 
 
 
-                                    } else {
-                                        CheckConnection.ShowToast_short(getApplicationContext(), "Đăng nhập thất bại");
-                                        Log.d("ok", "khôngtrùng khớp");
-
                                     }
+                            }else {
+                                CheckConnection.ShowToast_short(getApplicationContext(), "Đăng nhập thất bại");
                             }
 
                         }
@@ -107,6 +115,7 @@ public class DangnhapActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.d("ERRORR", "onResponse: Lỗi rồi ");
+                            CheckConnection.ShowToast_short(getApplicationContext(), "Đăng nhập thất bại");
 
                         }
                     }){
