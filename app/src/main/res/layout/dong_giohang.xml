@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="10">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_weight="3"
+        android:layout_margin="5dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imghinhanhgiohang"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:adjustViewBounds="true" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_weight="7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txttenspdonggiphang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="ten sp"
+            android:textColor="#f00"/>
+        <TextView
+            android:id="@+id/txtgiaspdonggiohang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="abc"
+            android:textColor="#f00"/>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btngiam"
+                android:focusable="false"
+                android:textSize="30dp"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="-"/>
+            <Button
+                android:id="@+id/btnsoluong"
+                android:focusable="false"
+                android:textSize="30dp"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:background="#FCFBFB" />
+            <Button
+                android:id="@+id/btntang"
+                android:focusable="false"
+                android:textSize="30dp"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="+"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
