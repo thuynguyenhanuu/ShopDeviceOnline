@@ -9,8 +9,8 @@
     android:weightSum="10">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbargiohang"
-        app:title="Gio hang"
-        android:background="#03A9F4"
+        app:title="Giỏ hàng"
+        android:background="#8B8A8A"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.Toolbar>
@@ -25,7 +25,7 @@
                     android:id="@+id/txtthongbao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Giỏ hàng của bạn đang trống!"
+                    android:text="Giỏ hàng đang trống!"
                     android:textColor="#f000"
                     android:textSize="30sp"
                     android:layout_gravity="center"/>
@@ -52,7 +52,7 @@
                 android:layout_height="match_parent">
                 <TextView
 
-                    android:text="Tong tien"
+                    android:text="Tổng tiền"
                     android:textColor="#f00"
                     android:textSize="30sp"
                     android:layout_width="wrap_content"
@@ -80,17 +80,19 @@
         android:layout_width="match_parent"
         android:layout_height="0sp"
         android:layout_weight="1"
-        android:text="Thanh toan"
+        android:text="Thanh toán"
         android:textSize="20sp"
-        android:textColor="#f00"
+        android:textColor="#030303"
+        android:background="@drawable/my_button_1"
         />
     <Button
         android:id="@+id/btnTieptucmua"
         android:layout_width="match_parent"
         android:layout_height="0sp"
         android:layout_weight="1"
-        android:text="Tiep thuc mua"
+        android:text="Tiếp tục mua"
         android:textSize="20sp"
-        android:textColor="#f00"
+        android:textColor="#050505"
+        android:background="@drawable/my_button_2"
         />
 </LinearLayout>

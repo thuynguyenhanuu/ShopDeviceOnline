@@ -68,18 +68,19 @@ public class DangkyActivity extends AppCompatActivity {
                         public void onResponse(String response) {
                             if(response.equals("isExisted")){
                                 Log.d("TTT", "onResponse: " +response);
-
                                 Toast.makeText(getApplicationContext(), "Số điện thoại đã được dùng", Toast.LENGTH_SHORT).show();
-                            }else {
-
-                                Log.d("TTT", "onResponse: " +response);
-                                Log.d("idngdung","thông báo" + response );
-                                Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(intent);
-
+                            }else if(response.equals("invalidphone")){
+                                Toast.makeText(getApplicationContext(), "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                            }else if(!matkhau.equals(xacnhanmatkhau)) {
+                                Log.d("TTT", "onResponse: " +matkhau + "" + xacnhanmatkhau);
+                                Toast.makeText(getApplicationContext(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                            }else if(matkhau.equals(xacnhanmatkhau)){
+                                    Log.d("TTT", "onResponse: " +matkhau + " = " + xacnhanmatkhau);
+                                    Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                    startActivity(intent);
+                                }
                             }
-                        }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {

@@ -382,13 +382,13 @@ public class MainActivity extends AppCompatActivity {
                         mangloaisp.add(4, new Loaisp(0, userNameMain, "https://cdn2.iconfinder.com/data/icons/business-charts-red/512/account_user_people_business_money_office_login-512.png"));
                     }
                     else {
-                        mangloaisp.add(4, new Loaisp(0, "Dang ki", "https://gamasonic.com/wp-content/uploads/2016/02/Product-Registration-Icon.jpg"));
+                        mangloaisp.add(4, new Loaisp(0, "Đăng ký", "https://gamasonic.com/wp-content/uploads/2016/02/Product-Registration-Icon.jpg"));
 
                     }
-                    String label = "Dang nhap";
+                    String label = "Đăng nhập";
                     String urlIconLog = "https://previews.123rf.com/images/alexwhite/alexwhite1410/alexwhite141000976/32176618-login-red-modern-web-icon-on-white-background.jpg";
                     if(CheckStatusUser.isLogin){
-                        label = "Dang xuat";
+                        label = "Đăng xuất";
                         urlIconLog = "https://cdn1.iconfinder.com/data/icons/basic-ui-elements-coloricon/21/46-512.png";
                     }
                     mangloaisp.add(5, new Loaisp(0, label, urlIconLog));

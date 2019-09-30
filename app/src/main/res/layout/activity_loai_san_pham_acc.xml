@@ -7,13 +7,20 @@
     tools:context=".activity.LoaiSanPhamAcc"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbarLoaisp"
+        app:title="Loại sản phẩm"
+        android:background="#8B8A8A">
 
+    </android.support.v7.widget.Toolbar>
 
     <GridView
         android:id="@+id/gridviewLoaiSanPham"
         android:numColumns="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#DDA4A4"/>
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

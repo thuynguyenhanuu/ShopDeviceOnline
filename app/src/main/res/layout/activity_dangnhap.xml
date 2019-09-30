@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.DangnhapActivity"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#FFFEFE">
 
     <LinearLayout
         android:layout_margin="30dp"
@@ -18,14 +19,16 @@
         <TextView
             android:text="Bạn vui lòng đăng nhập để mua sản phẩm"
             android:textSize="25sp"
-            android:textColor="#f00"
+            android:textColor="#2B2B2B"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
+            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Số điện thoại"
-            android:textColor="#050505"/>
+            android:textColor="#050505"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/edtsdtdnhap"
@@ -38,7 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mật khẩu"
-            android:textColor="#050505"/>
+            android:textColor="#050505"
+            android:textSize="20sp"/>
         <EditText
             android:id="@+id/edtmatkhaudnhap"
             android:layout_width="match_parent"
@@ -61,7 +65,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:textColor="#050505"
-            android:background="#2D30E4"
+            android:background="@drawable/my_button_1"
             android:text="Đăng nhập"/>
         <Button
             android:id="@+id/btnhuydnhap"
@@ -69,7 +73,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:textColor="#050505"
-            android:background="#E91D0B"
+            android:background="@drawable/my_button_2"
             android:text="Hủy" />
 
     </LinearLayout>
@@ -91,6 +95,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng ký tài khoản"
-            android:background="#F7F3F3"/>
+            android:textColor="#4A74C9"
+            android:background="#FFFEFE"
+           />
     </LinearLayout>
 </LinearLayout>

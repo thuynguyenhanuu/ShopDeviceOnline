@@ -3,23 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <android.support.v7.widget.CardView
 
-        app:cardBackgroundColor="#DAA4A4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="5dp"
+        android:layout_margin="4dp">
 
         <LinearLayout
-            android:layout_margin="40dp"
-            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#C0B8B8">
+            android:background="#F0EDED"
+            android:gravity="center">
                 <ImageView
                     android:id="@+id/imageviewloaisanpham"
+                    android:layout_marginTop="5dp"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:adjustViewBounds="true" />
@@ -28,10 +31,11 @@
                         android:id="@+id/txtTenloaisanpham"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
-                        android:text="Tên loại sản phẩm"
+                        android:text="ten sach"
                         android:textSize="18sp"
                         android:textColor="#000000"
                         android:layout_marginTop="10dp"
+                        android:gravity="center"
                         />
 
         </LinearLayout>

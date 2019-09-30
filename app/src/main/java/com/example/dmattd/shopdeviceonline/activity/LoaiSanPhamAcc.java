@@ -3,6 +3,7 @@ package com.example.dmattd.shopdeviceonline.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +40,7 @@ import java.util.Map;
 
 public class LoaiSanPhamAcc extends AppCompatActivity {
 
+    Toolbar toolbar;
    GridView gridView;
     ArrayList<LoaiSanPham> mangloaisanpham;
     LoaiSanPhamAdapter loaiSanPhamAdapter;
@@ -53,9 +55,11 @@ public class LoaiSanPhamAcc extends AppCompatActivity {
         Anhxa();
         GetDuLieuLoaisp();
         GetTungLoaiSp();
+        ActionToolBar();
     }
 
     private void Anhxa() {
+        toolbar = findViewById(R.id.toolbarLoaisp);
         gridView = findViewById(R.id.gridviewLoaiSanPham);
         mangloaisanpham = new ArrayList<>();
         loaiSanPhamAdapter = new LoaiSanPhamAdapter(mangloaisanpham, getApplicationContext());
@@ -63,6 +67,16 @@ public class LoaiSanPhamAcc extends AppCompatActivity {
 
     }
 
+    private void ActionToolBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
     private void GetDuLieuLoaisp() {
         // thuc hien cac phuong thuc gui len server
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
