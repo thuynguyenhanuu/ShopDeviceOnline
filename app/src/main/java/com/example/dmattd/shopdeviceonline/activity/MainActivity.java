@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     SanphamAdapter sanphamAdapter;
 
     public static boolean daDangnhap = false;
+    public static int idtoiii = 0;
 
     public static ArrayList<Giohang> manggiohang;
 
@@ -208,6 +209,9 @@ public class MainActivity extends AppCompatActivity {
                     case 4:
                         if(CheckStatusUser.isLogin) {
                             //hien thi thong tin nguoi dung
+                            //idtoiii = CheckStatusUser.idNgdung;
+                            Intent intent = new Intent(MainActivity.this, ThongtinKhachhangActivity.class);
+                            startActivity(intent);
                         }else {
                             //dang ki
                             Intent intent = new Intent(MainActivity.this, DangkyActivity.class);
@@ -345,6 +349,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // menu trái
     private void GetDuLieuLoaisp() {
         // thuc hien cac phuong thuc gui len server
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());

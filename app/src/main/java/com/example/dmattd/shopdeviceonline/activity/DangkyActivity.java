@@ -69,7 +69,17 @@ public class DangkyActivity extends AppCompatActivity {
                             if(response.equals("isExisted")){
                                 Log.d("TTT", "onResponse: " +response);
                                 Toast.makeText(getApplicationContext(), "Số điện thoại đã được dùng", Toast.LENGTH_SHORT).show();
+                            }else if(response.equals("invalidname")){
+                                Log.d("TTT", "onResponse: " +response);
+                                Toast.makeText(getApplicationContext(), "Tên không hợp lệ", Toast.LENGTH_SHORT).show();
+                            }else if(response.equals("invalidpass")){
+                                Log.d("TTT", "onResponse: " +response);
+                                Toast.makeText(getApplicationContext(), "Mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+                            }else if(response.equals("invalidaddress")){
+                                Log.d("TTT", "onResponse: " +response);
+                                Toast.makeText(getApplicationContext(), "Địa chỉ không hợp lệ", Toast.LENGTH_SHORT).show();
                             }else if(response.equals("invalidphone")){
+                                Log.d("TTT", "onResponse: " +response);
                                 Toast.makeText(getApplicationContext(), "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
                             }else if(!matkhau.equals(xacnhanmatkhau)) {
                                 Log.d("TTT", "onResponse: " +matkhau + "" + xacnhanmatkhau);

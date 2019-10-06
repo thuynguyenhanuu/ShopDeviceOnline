@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ThongtinKhachhangActivity"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    >
+
+
+    //title
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Thông tin của tôi"
+        android:textColor="#034494"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txttennd"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="68dp"
+        android:text="Tên"
+        android:textColor="#f000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/txtsdtnd"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="80dp"
+        android:text="Điện thoại"
+        android:textColor="#f000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txttennd" />
+
+    <TextView
+        android:id="@+id/txtdiachind"
+        android:layout_width="85dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="72dp"
+        android:text="Địa chỉ"
+        android:textSize="20sp"
+        android:textColor="#f000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtsdtnd" />
+
+
+    // giá trị tên
+
+    <TextView
+        android:id="@+id/txtmatkhaund"
+        android:layout_width="85dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="100dp"
+        android:text="Mật khẩu"
+        android:textColor="#f000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtdiachind" />
+
+    <TextView
+        android:id="@+id/txtvalueten"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="68dp"
+        android:text="tên tôi"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txttennd"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+    <EditText
+        android:id="@+id/edtvalueten"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="68dp"
+        android:text="tên tôi"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txttennd"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <ImageButton
+        android:id="@+id/imagetenedit"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="62dp"
+        app:layout_constraintStart_toEndOf="@+id/txtvalueten"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:srcCompat="@drawable/edit2"
+        android:scaleType="centerInside"
+        />
+
+
+
+    <ImageButton
+        android:id="@+id/imagetensavet"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="62dp"
+        app:layout_constraintStart_toEndOf="@+id/txtvalueten"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:srcCompat="@drawable/tick"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageButton
+        android:id="@+id/imagetencancle"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@+id/imagetensavet"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:srcCompat="@drawable/cancel" />
+
+    //giá trị sdt
+
+
+    <TextView
+        android:id="@+id/txtvaluesdt"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtsdtnd"
+        app:layout_constraintTop_toBottomOf="@+id/txtvalueten" />
+
+    <EditText
+        android:id="@+id/edtvaluesdt"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtsdtnd"
+        app:layout_constraintTop_toBottomOf="@+id/txtvalueten" />
+
+
+    <ImageButton
+        android:id="@+id/imagesdtedit"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="55dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtvaluesdt"
+        app:layout_constraintTop_toBottomOf="@+id/imagetenedit"
+        app:srcCompat="@drawable/edit2"
+        android:scaleType="centerInside"/>
+
+
+
+    <ImageButton
+        android:id="@+id/imagesdtsave"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="66dp"
+        android:scaleType="centerInside"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtvaluesdt"
+        app:layout_constraintTop_toBottomOf="@+id/imagetenedit"
+        app:srcCompat="@drawable/tick" />
+
+    // giá trị địa chỉ
+
+    <ImageButton
+        android:id="@+id/imagediachicancle"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintStart_toEndOf="@+id/imagediachisave"
+        app:layout_constraintTop_toBottomOf="@+id/imagetencancle"
+        app:srcCompat="@drawable/cancel" />
+
+    <TextView
+        android:id="@+id/txtvaluediachi"
+        android:layout_width="120dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="72dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtdiachind"
+        app:layout_constraintTop_toBottomOf="@+id/txtvaluesdt" />
+
+    <EditText
+        android:id="@+id/edtvaluediachi"
+        android:layout_width="120dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="72dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtdiachind"
+        app:layout_constraintTop_toBottomOf="@+id/txtvaluesdt" />
+
+    <ImageButton
+        android:id="@+id/imagediachiedit"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="82dp"
+        app:layout_constraintStart_toEndOf="@+id/txtvaluediachi"
+        app:layout_constraintTop_toBottomOf="@+id/imagesdtedit"
+        app:srcCompat="@drawable/edit2"
+        android:scaleType="centerInside"/>
+
+
+    // giá trị mật khẩu
+
+    <ImageButton
+        android:id="@+id/imagediachisave"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="180dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toEndOf="@+id/txtvaluediachi"
+        app:layout_constraintTop_toBottomOf="@+id/imagetensavet"
+        app:srcCompat="@drawable/tick" />
+
+    <TextView
+        android:id="@+id/txtvaluematkhau"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtmatkhaund"
+        app:layout_constraintTop_toBottomOf="@+id/txtvaluediachi" />
+
+    <EditText
+        android:id="@+id/edtvaluematkhau"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txtmatkhaund"
+        app:layout_constraintTop_toBottomOf="@+id/txtvaluediachi" />
+
+    <ImageButton
+        android:id="@+id/imagematkhauedit"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="75dp"
+        app:layout_constraintStart_toEndOf="@+id/txtvaluematkhau"
+        app:layout_constraintTop_toBottomOf="@+id/imagediachiedit"
+        app:srcCompat="@drawable/edit2"
+        android:scaleType="centerInside"/>
+
+    <ImageButton
+        android:id="@+id/imagematkhausave"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="72dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toEndOf="@+id/txtvaluematkhau"
+        app:layout_constraintTop_toBottomOf="@+id/imagediachiedit"
+        app:srcCompat="@drawable/tick" />
+
+    <ImageButton
+        android:id="@+id/imagematkhaucancle"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintStart_toEndOf="@+id/imagematkhausave"
+        app:layout_constraintTop_toBottomOf="@+id/imagediachicancle"
+        app:srcCompat="@drawable/cancel" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+// Sản phẩm nói chung
 public class SanphamAdapter extends RecyclerView.Adapter<SanphamAdapter.ItemHolder> {
 
     Context context;

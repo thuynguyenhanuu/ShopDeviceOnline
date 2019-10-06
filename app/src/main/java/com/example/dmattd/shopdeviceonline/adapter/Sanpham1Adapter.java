@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+// Sản phẩm mới nhất
 public class Sanpham1Adapter extends BaseAdapter {
     Context context;
     ArrayList<Sanpham> arrayListSanpham1;

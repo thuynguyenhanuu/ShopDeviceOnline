@@ -3,23 +3,52 @@ package com.example.dmattd.shopdeviceonline.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.dmattd.shopdeviceonline.R;
+import com.example.dmattd.shopdeviceonline.adapter.NhanxetAdapter;
 import com.example.dmattd.shopdeviceonline.model.CheckStatusUser;
 import com.example.dmattd.shopdeviceonline.model.Giohang;
+import com.example.dmattd.shopdeviceonline.model.Nhanxet;
 import com.example.dmattd.shopdeviceonline.model.Sanpham;
+import com.example.dmattd.shopdeviceonline.util.CheckConnection;
+import com.example.dmattd.shopdeviceonline.util.Server;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.dmattd.shopdeviceonline.model.CheckStatusUser.diachi;
+import static com.example.dmattd.shopdeviceonline.model.CheckStatusUser.sdt;
 
 public class ChitietSanpham extends AppCompatActivity {
 
@@ -27,7 +56,8 @@ public class ChitietSanpham extends AppCompatActivity {
     ImageView imgchitiet;
     TextView txtten, txtgia, txtmota;
     Spinner spinner;
-    Button btndatmua;
+    Button btndatmua, btnThemnx;
+    EditText edtVietnx;
 
     int id = 0;
     String tenchitiet = "";
@@ -35,6 +65,16 @@ public class ChitietSanpham extends AppCompatActivity {
     String hinhanhchitiet = "";
     String motachitiet = "";
     int id_loaisp = 0;
+
+    int idnhanxet = 0;
+    int idnguoinx = 0;
+    String tennguoinx = "";
+    String noidungnx = "";
+    int idXoa = 0;
+
+    ArrayList<Nhanxet> mangnhanxet;
+    NhanxetAdapter nhanxetAdapter;
+    RecyclerView recyclerViewChitietsp;
 
 
     @Override
@@ -44,8 +84,121 @@ public class ChitietSanpham extends AppCompatActivity {
         AnhXa();
         ActionToolbar();
         GetInformation();
+        GetNhanxet();
+
         CatchEventSpinner();
+
         EventButton();
+     //   GetdulieuNhanxet();
+
+        ThemNhanXet();
+    }
+
+
+
+    private void ThemNhanXet() {
+
+        btnThemnx.setOnClickListener(new View.OnClickListener() {
+
+            String txtnoidungnx = "";
+
+           // String txtnoidung2 = edtVietnx.getText().toString();
+
+            @Override
+            public void onClick(View view) {
+
+                txtnoidungnx = edtVietnx.getText().toString().trim();
+                Log.d("NXX", "Nội dung 1: " + txtnoidungnx);
+//                Log.d("NXX", "Nội dung 2: " + txtnoidung2);
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdanthemnhanxet, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("NXX", "viết nx" + response);
+                        if(response.equals("invalidcontent")){
+                            Toast.makeText(getApplicationContext(), "Nội dung không hợp lệ", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Viết comment thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("onErrorResponse", "onErrorResponse: lỗi viết nx");
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String, String> hashMap = new HashMap<String, String>();
+                        hashMap.put("idsp", CheckStatusUser.idsanpham);
+                        hashMap.put("idnguoidung", String.valueOf(CheckStatusUser.idNgdung));
+                        hashMap.put("noidung", txtnoidungnx);
+                        return hashMap;
+                    }
+                };
+                requestQueue.add(stringRequest);
+
+                mangnhanxet.add(new Nhanxet(CheckStatusUser.idNgdung,CheckStatusUser.ten, txtnoidungnx));
+                Log.d("NXX", "teen nguoi viet nx" + CheckStatusUser.ten);
+
+                edtVietnx.setText("");
+                nhanxetAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+        //ABCNhanxet();
+    }
+
+    private void GetNhanxet() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdannhanxet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("NXX", "abc" + response);
+                if(response != null){
+                    //int id = 0;
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                            idnhanxet = jsonObject.getInt("id");
+                            Log.d("NX", "id nhan xet: " +idnhanxet);
+
+                            idnguoinx = jsonObject.getInt("idnguoidung");
+                            Log.d("NX", "idNguoi nx: " +idnguoinx);
+
+                            noidungnx = jsonObject.getString("noidung");
+                            tennguoinx = jsonObject.getString("ten");
+                            mangnhanxet.add(new Nhanxet(idnhanxet,idnguoinx, noidungnx, tennguoinx));
+                            nhanxetAdapter.notifyDataSetChanged();
+
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<String, String>();
+                hashMap.put("idsp", CheckStatusUser.idsanpham);
+                return hashMap;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -96,8 +249,6 @@ public class ChitietSanpham extends AppCompatActivity {
                                 int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
                                 long giamoi = soluong * giachitiet;
                                 MainActivity.manggiohang.add(new Giohang(id, tenchitiet, giamoi, hinhanhchitiet, soluong));
-
-
                             }
                         } else {
                             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
@@ -129,6 +280,11 @@ public class ChitietSanpham extends AppCompatActivity {
 
         Sanpham sanpham = (Sanpham) getIntent().getSerializableExtra("thongtinsp");
         id = sanpham.getId();
+
+        CheckStatusUser.idsanpham = String.valueOf(id);
+        Log.d("NX", "id: " +CheckStatusUser.idsanpham);
+
+
         tenchitiet = sanpham.getTensp();
         giachitiet = sanpham.getGiasp();
         hinhanhchitiet = sanpham.getHinhanhsp();
@@ -145,6 +301,8 @@ public class ChitietSanpham extends AppCompatActivity {
                 .into(imgchitiet);
 
     }
+
+
 
     private void ActionToolbar() {
         setSupportActionBar(toolbarchitietsp);
@@ -168,7 +326,109 @@ public class ChitietSanpham extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         btndatmua = findViewById(R.id.btnThem);
 
+        btnThemnx = findViewById(R.id.btnVietNhanxet);
+        edtVietnx = findViewById(R.id.edtVietNhanxet);
+
+        recyclerViewChitietsp = findViewById(R.id.recycleViewComment);
+
+
+        mangnhanxet = new ArrayList<>();
+        nhanxetAdapter = new NhanxetAdapter(getApplicationContext(), mangnhanxet);
+
+        //đăng ký view cho context menu
+        registerForContextMenu(recyclerViewChitietsp);
+        nhanxetAdapter.setOnItemClickListener(new RecycleviewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int i) {
+                Toast.makeText(getApplicationContext(), "short", Toast.LENGTH_SHORT ).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int i) {
+               // Toast.makeText(getApplicationContext(), "long" + mangnhanxet.get(i).getIdnguoinx(), Toast.LENGTH_SHORT ).show();
+                idnguoinx = mangnhanxet.get(i).getIdnguoinx();
+                idnhanxet = mangnhanxet.get(i).getId();
+                noidungnx = mangnhanxet.get(i).getNoidungnx();
+                idXoa = i;
+
+                Log.d("ID", "id mangnx " );
+                Toast.makeText(getApplicationContext(), "abc"+ idXoa, Toast.LENGTH_SHORT).show();
+
+
+                //Toast.makeText(getApplicationContext(), "long" + idnguoinx + "....." + CheckStatusUser.idNgdung, Toast.LENGTH_SHORT ).show();
+
+
+                view.showContextMenu();
+
+            }
+        });
+
+
+        recyclerViewChitietsp.setHasFixedSize(true);
+        recyclerViewChitietsp.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
+        recyclerViewChitietsp.setAdapter(nhanxetAdapter);
+
+
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
+        if(idnguoinx == CheckStatusUser.idNgdung){
+            getMenuInflater().inflate(R.menu.menu_xoa_sua, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.menu_traloi_cmt, menu);
+
+        }
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()){
+            case R.id.traloicmt:
+                break;
+            case  R.id.xoacmt:
+                Log.d("ID", "id xoa nx1: "+idnhanxet);
+                final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdanxoanhanxet, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("TEST", "sdtout " + response);
+                        CheckConnection.ShowToast_short(getApplicationContext(), "xoa ok");
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("TEST", "sdtout " + error);
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String, String> param = new HashMap<String, String>();
+                        param.put("id", String.valueOf(idnhanxet));
+                        return param;
+                    }
+                };
+                requestQueue.add(stringRequest);
+                mangnhanxet.remove(idXoa);
+                nhanxetAdapter.notifyDataSetChanged();
+                break;
+            case R.id.suacmt:
+                Intent intent = new Intent(this, SuaCommentActivity.class);
+                intent.putExtra("suanhanxet", noidungnx);
+                intent.putExtra("id", idnhanxet);
+                Log.d("ND", "" + noidungnx + " " + idnhanxet);
+
+                startActivity(intent);
+                nhanxetAdapter.notifyDataSetChanged();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
 }

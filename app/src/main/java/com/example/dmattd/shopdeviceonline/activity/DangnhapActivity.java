@@ -37,6 +37,8 @@ public class DangnhapActivity extends AppCompatActivity {
     String passMain;
     boolean isLogin = false;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +80,19 @@ public class DangnhapActivity extends AppCompatActivity {
 
                                         // Lấy id người dùng
                                         CheckStatusUser.idNgdung = jsonObject.getInt("id");
-                                        Log.d("ss", "idout " + CheckStatusUser.idNgdung);
+//                                        Log.d("latthongtin", "onResponse: " + jsonObject.getString("ten"));
+//                                        Log.d("latthongtin", "onResponse: " + jsonObject.getString("diachi"));
+//                                        Log.d("latthongtin", "onResponse: " + jsonObject.getString("matkhau"));
+
+//                                        Log.d("myidlogin", "idout " + CheckStatusUser.idNgdung);
+
+                                        // lưu thông tin người dùng
+                                        CheckStatusUser.sdt = jsonObject.getString("sdt");
+
+                                        CheckStatusUser.ten = jsonObject.getString("ten");
+                                        CheckStatusUser.diachi = jsonObject.getString("diachi");
+                                        CheckStatusUser.matkhau = jsonObject.getString("matkhau");
+
 
 
                                         sdtoutput = jsonObject.getString("sdt");

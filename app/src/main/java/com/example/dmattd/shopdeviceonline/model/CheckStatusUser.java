@@ -13,4 +13,9 @@ public class CheckStatusUser implements Serializable {
 
     public static int idLoaiSanPham;
 
+    public static  String ten, sdt, diachi, matkhau;
+
+    public static String idsanpham;
+
+
 }

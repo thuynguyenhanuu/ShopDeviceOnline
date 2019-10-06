@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoaiSanPhamAcc"></activity>
+        <activity android:name=".activity.SuaCommentActivity"></activity>
+        <activity android:name=".activity.NhanxetActivity" />
+        <activity android:name=".activity.ThongtinKhachhangActivity" />
+        <activity android:name=".activity.LoaiSanPhamAcc" />
         <activity android:name=".activity.DangnhapActivity" />
         <activity android:name=".activity.DangkyActivity" />
         <activity android:name=".activity.Giohang" />
