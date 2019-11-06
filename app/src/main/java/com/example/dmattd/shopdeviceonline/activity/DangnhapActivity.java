@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,7 +32,8 @@ import java.util.Map;
 public class DangnhapActivity extends AppCompatActivity {
 
     EditText sdtDangnhap, matkhaudangnhap;
-    Button btndangnhap, btnhuy, btnchuyentrangdangky;
+    Button btndangnhap, btnhuy;
+    TextView btnchuyentrangdangky;
 
     String sdtMain;
     String passMain;

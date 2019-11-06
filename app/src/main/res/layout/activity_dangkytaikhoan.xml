@@ -6,25 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activity.DangkyActivity"
     android:orientation="vertical"
-    android:weightSum="10">
-
-    <LinearLayout
-        android:layout_margin="20dp"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_weight="8"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
+    android:layout_margin="30dp">
 
         <TextView
             android:text="Đăng ký tài khoản"
-            android:textColor="#034494"
-            android:textSize="35sp"
+            android:textColor="#f000"
+            android:textSize="25sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center" />
         <TextView
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên người dùng"
@@ -95,32 +87,27 @@
             android:ems="10"
             android:inputType="textPassword"
             android:hint="Nhập lại mật khẩu" />
-    </LinearLayout>
 
-
-
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
         <Button
             android:id="@+id/btndangkydky"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:textColor="#050505"
-            android:background="@drawable/my_button_1"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FCFBFB"
+            android:background="#f000"
             android:text="Đăng ký"/>
+
         <Button
             android:id="@+id/btnhuydky"
-            android:layout_marginLeft="130dp"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:textColor="#050505"
-            android:background="@drawable/my_button_2"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FCFBFB"
+            android:background="#f00"
             android:text="Hủy" />
 
-    </LinearLayout>
+
+
+
 
 </LinearLayout>

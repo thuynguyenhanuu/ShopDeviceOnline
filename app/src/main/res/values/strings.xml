@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ShopDeviceOnline</string>
+    <string name="standard">Giao hàng tiêu chuẩn</string>
+    <string name="GHN">Giao hàng nhanh</string>
+    <string name="tien_mat">Thanh toán tiền mặt khi nhận hàng</string>
+    <string name="atm_qt">Thanh toán bằng thẻ quốc tế Visa, Master, JCB</string>
+    <string name="atm_noidia">Thẻ ATM nội địa/Internet Banking</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+
+
 </resources>

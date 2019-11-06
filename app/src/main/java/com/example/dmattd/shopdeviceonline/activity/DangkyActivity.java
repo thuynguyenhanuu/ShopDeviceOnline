@@ -71,13 +71,13 @@ public class DangkyActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Số điện thoại đã được dùng", Toast.LENGTH_SHORT).show();
                             }else if(response.equals("invalidname")){
                                 Log.d("TTT", "onResponse: " +response);
-                                Toast.makeText(getApplicationContext(), "Tên không hợp lệ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Tên không hợp lệ(tên từ 3-15 kí tự)", Toast.LENGTH_SHORT).show();
                             }else if(response.equals("invalidpass")){
                                 Log.d("TTT", "onResponse: " +response);
-                                Toast.makeText(getApplicationContext(), "Mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Mật khẩu không hợp lệ (từ 8 đến 16 kí tự)", Toast.LENGTH_SHORT).show();
                             }else if(response.equals("invalidaddress")){
                                 Log.d("TTT", "onResponse: " +response);
-                                Toast.makeText(getApplicationContext(), "Địa chỉ không hợp lệ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Địa chỉ không hợp lệ (địa chỉ từ 10 -50 kí tự)", Toast.LENGTH_SHORT).show();
                             }else if(response.equals("invalidphone")){
                                 Log.d("TTT", "onResponse: " +response);
                                 Toast.makeText(getApplicationContext(), "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();

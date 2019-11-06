@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.Giohang"
+    tools:context=".activity.GiohangActivity"
     android:orientation="vertical"
     android:weightSum="10">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbargiohang"
         app:title="Giỏ hàng"
-        android:background="#8B8A8A"
+        android:background="#E04B41"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.Toolbar>
@@ -45,7 +45,7 @@
             android:orientation="horizontal"
             android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">\
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -77,22 +77,24 @@
     </LinearLayout>
     <Button
         android:id="@+id/btnThanhtoan"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="0sp"
         android:layout_weight="1"
         android:text="Thanh toán"
         android:textSize="20sp"
         android:textColor="#030303"
-        android:background="@drawable/my_button_1"
+        android:background="#4A42C9"
         />
     <Button
         android:id="@+id/btnTieptucmua"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="0sp"
         android:layout_weight="1"
         android:text="Tiếp tục mua"
         android:textSize="20sp"
         android:textColor="#050505"
-        android:background="@drawable/my_button_2"
+        android:background="#DF2828"
         />
 </LinearLayout>

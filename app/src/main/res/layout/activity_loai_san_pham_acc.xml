@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbarLoaisp"
         app:title="Loại sản phẩm"
-        android:background="#8B8A8A">
+        android:background="#E04B41">
 
     </android.support.v7.widget.Toolbar>
 

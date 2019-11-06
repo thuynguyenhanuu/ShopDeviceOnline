@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,7 +43,7 @@ import java.util.Map;
 public class LoaiSanPhamAcc extends AppCompatActivity {
 
     Toolbar toolbar;
-   GridView gridView;
+    GridView gridView;
     ArrayList<LoaiSanPham> mangloaisanpham;
     LoaiSanPhamAdapter loaiSanPhamAdapter;
 
@@ -57,6 +59,23 @@ public class LoaiSanPhamAcc extends AppCompatActivity {
         GetTungLoaiSp();
         ActionToolBar();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menugiohang, menu);
+        return true;
+    }
+
+    //bat su kien menugio hang
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), GiohangActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     private void Anhxa() {
         toolbar = findViewById(R.id.toolbarLoaisp);
@@ -123,13 +142,19 @@ public class LoaiSanPhamAcc extends AppCompatActivity {
 
     private void GetTungLoaiSp(){
         final int idloaisanpham;
+        String tenloaisanpham;
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 CheckStatusUser.idLoaiSanPham = (i+1);
+                CheckStatusUser.tenLoaiSanPham = mangloaisanpham.get(i).getTenLoaiSanPham();
+
+               // CheckConnection.ShowToast_short(getApplicationContext(), "abc"+CheckStatusUser.tenLoaiSanPham);
 
                 Intent intent = new Intent(getApplicationContext(), Sanpham1Activity.class);
                 intent.putExtra("id_loaisp",CheckStatusUser.idLoaiSanPham );
+                intent.putExtra("ten_loaisp",CheckStatusUser.tenLoaiSanPham );
+
                 startActivity(intent);
 
             }

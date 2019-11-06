@@ -24,7 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.dmattd.shopdeviceonline.R;
 import com.example.dmattd.shopdeviceonline.adapter.GiohangAdapter;
 import com.example.dmattd.shopdeviceonline.model.CheckStatusUser;
-import com.example.dmattd.shopdeviceonline.model.Dangnhap;
+import com.example.dmattd.shopdeviceonline.model.Giohang;
 import com.example.dmattd.shopdeviceonline.util.CheckConnection;
 import com.example.dmattd.shopdeviceonline.util.Server;
 
@@ -36,7 +36,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Giohang extends AppCompatActivity {
+public class  GiohangActivity extends AppCompatActivity {
 
     ListView listViewGiohang;
     TextView txtThongbao;
@@ -72,58 +72,13 @@ public class Giohang extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(MainActivity.manggiohang.size() > 0){
-                    final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdanchitietdonhang, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            if(response.equals("1")){
-                                MainActivity.manggiohang.clear();
-                                Log.d("response111", "" + response);
-                                CheckConnection.ShowToast_short(getApplicationContext(), "Bạn đã thêm dữ liệu cho giỏ hàng thành công!");
-
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                CheckConnection.ShowToast_short(getApplicationContext(), "Mời bạn tiếp tục mua hàng!");
-                            }
-
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    }){
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            JSONArray jsonArray = new JSONArray();
-                            for(int i = 0; i < MainActivity.manggiohang.size(); i++){
-                                JSONObject jsonObject = new JSONObject();
-                                try {
-                                    jsonObject.put("idkhachhang", CheckStatusUser.idNgdung);
-                                    jsonObject.put("idsanpham", MainActivity.manggiohang.get(i).getIdsp());
-                                    jsonObject.put("tensanpham", MainActivity.manggiohang.get(i).getTensp());
-                                    jsonObject.put("giasanpham", MainActivity.manggiohang.get(i).getGiasp());
-                                    jsonObject.put("soluongsanpham", MainActivity.manggiohang.get(i).getSoluongsp());
-//
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                jsonArray.put(jsonObject);
-
-                            }
-                            HashMap<String,String> hashMap = new HashMap<String, String>();
-                            hashMap.put("json", jsonArray.toString());
-                            return hashMap;
-
-                        }
-                    };
-                    requestQueue.add(stringRequest);
-
-                }else {
+                    Intent intent = new Intent(getApplicationContext(), DiachiThanhtoanActivity.class);
+                    startActivity(intent);
+                }else{
                     CheckConnection.ShowToast_short(getApplicationContext(), "Giỏ hàng không có sản phẩm");
-
                 }
+
+
             }
         });
     }
@@ -134,7 +89,7 @@ public class Giohang extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int position, long l) {
                 // khoi tao hop thong bao
-                AlertDialog.Builder builder = new AlertDialog.Builder(Giohang.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(GiohangActivity.this);
                 builder.setTitle("Xác nhận xóa sản phẩm");
                 builder.setMessage("Bạn có chắc muốn xóa sản phẩm này không?");
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -173,11 +128,14 @@ public class Giohang extends AppCompatActivity {
     public static void EventUtils() {
         long tongtien = 0;
         for (int i = 0; i < MainActivity.manggiohang.size(); i++){
-            tongtien += MainActivity.manggiohang.get(i).getGiasp();
+//            tongtien += MainActivity.manggiohang.get(i).getGiasp();
+            tongtien += MainActivity.manggiohang.get(i).getTonggia();
+
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtTongtien.setText(decimalFormat.format(tongtien) + "Đ");
     }
+
 
     private void CheckData() {
         if(MainActivity.manggiohang.size() <= 0){
@@ -209,7 +167,7 @@ public class Giohang extends AppCompatActivity {
         btnThangtoan = findViewById(R.id.btnThanhtoan);
         btnTieptucmua = findViewById(R.id.btnTieptucmua);
         toolbargiohang = findViewById(R.id.toolbargiohang);
-        giohangAdapter = new GiohangAdapter(Giohang.this, MainActivity.manggiohang);
+        giohangAdapter = new GiohangAdapter(GiohangActivity.this, MainActivity.manggiohang);
         listViewGiohang.setAdapter(giohangAdapter);
     }
 

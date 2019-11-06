@@ -6,13 +6,31 @@ public class Giohang {
     public long giasp;
     public String hinhanhsp;
     public int soluongsp;
+    public long tonggia;
 
-    public Giohang(int idsp, String tensp, long giasp, String hinhanhsp, int soluongsp) {
+//    public GiohangActivity(int idsp, String tensp, long giasp, String hinhanhsp, int soluongsp) {
+//        this.idsp = idsp;
+//        this.tensp = tensp;
+//        this.giasp = giasp;
+//        this.hinhanhsp = hinhanhsp;
+//        this.soluongsp = soluongsp;
+//    }
+
+    public Giohang(int idsp, String tensp, long giasp, String hinhanhsp, int soluongsp, long tonggia) {
         this.idsp = idsp;
         this.tensp = tensp;
         this.giasp = giasp;
         this.hinhanhsp = hinhanhsp;
         this.soluongsp = soluongsp;
+        this.tonggia = tonggia;
+    }
+
+    public long getTonggia() {
+        return tonggia;
+    }
+
+    public void setTonggia(long tonggia) {
+        this.tonggia = tonggia;
     }
 
     public int getIdsp() {

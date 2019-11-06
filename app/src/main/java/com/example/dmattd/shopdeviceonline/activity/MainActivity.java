@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 import android.widget.ViewFlipper;
 
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<Giohang> manggiohang;
 
+    TextView txtten, txtsdt;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             GetDuLieuLoaisp();
             GetDuLieuSPMoiNhat();
             CatchOnItemListView();
+            SetUserInfor();
 
 
         }else {
@@ -97,6 +101,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void SetUserInfor() {
+        if(CheckStatusUser.isLogin){
+            txtten.setText(CheckStatusUser.ten);
+            txtsdt.setText(CheckStatusUser.sdt);
+        }
     }
 
     @Override
@@ -147,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menugiohang:
                 if(CheckStatusUser.isLogin) {
-                    Intent intent = new Intent(getApplicationContext(), com.example.dmattd.shopdeviceonline.activity.Giohang.class);
+                    Intent intent = new Intent(getApplicationContext(), GiohangActivity.class);
                     startActivity(intent);
                 }
                 else
@@ -210,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                         if(CheckStatusUser.isLogin) {
                             //hien thi thong tin nguoi dung
                             //idtoiii = CheckStatusUser.idNgdung;
-                            Intent intent = new Intent(MainActivity.this, ThongtinKhachhangActivity.class);
+                            Intent intent = new Intent(MainActivity.this, QuanlyToiActivity.class);
                             startActivity(intent);
                         }else {
                             //dang ki
@@ -309,39 +320,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GetNavi(){
+        //mangloaisp.add(0, new L)
         mangloaisp.add(0, new Loaisp(0, "Trang chinh", "https://img.icons8.com/cotton/2x/home--v2.png"));
         mangloaisp.add(1, new Loaisp(0, "Loại sp", "data:image/png;base64,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"));
         mangloaisp.add(2, new Loaisp(0, "Liên hệ", "https://phukiensinhnhat.vn/wp-content/uploads/2017/08/Phone-icon.jpg"));
         mangloaisp.add(3, new Loaisp(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNn5dHbPDP34Uch2WIpMd1DzJoYSKp7-XUCBe_4lK6pVB7qSCG"));
 
-
-        String labelUser;
-        String urlUser;
-        if(CheckStatusUser.isLogin) {
-            labelUser = userNameMain;
-            Log.d("MMM", "GetNavi: " + userNameMain);
-            urlUser = "https://cdn2.iconfinder.com/data/icons/business-charts-red/512/account_user_people_business_money_office_login-512.png";
-        }
-        else {
-            labelUser = "Dang ki";
-            urlUser = "https://gamasonic.com/wp-content/uploads/2016/02/Product-Registration-Icon.jpg";
-        }
-        Log.d("MMM", "addControls: " + labelUser);
-        mangloaisp.add(4, new Loaisp(0, labelUser, urlUser));
-
-
-        //
-        String label;
-        String urlIconLog;
-        if(CheckStatusUser.isLogin){
-            label = "Dang xuat";
-            urlIconLog = "https://cdn1.iconfinder.com/data/icons/basic-ui-elements-coloricon/21/46-512.png";
-        } else {
-            label = "Dang nhap";
-            urlIconLog = "https://previews.123rf.com/images/alexwhite/alexwhite1410/alexwhite141000976/32176618-login-red-modern-web-icon-on-white-background.jpg";
-
-        }
-        mangloaisp.add(5, new Loaisp(0, label, urlIconLog));
+//
+//        String labelUser;
+//        String urlUser;
+//        if(CheckStatusUser.isLogin) {
+//            labelUser = userNameMain;
+//            Log.d("MMM", "GetNavi: " + userNameMain);
+//            urlUser = "https://cdn2.iconfinder.com/data/icons/business-charts-red/512/account_user_people_business_money_office_login-512.png";
+//        }
+//        else {
+//            labelUser = "Dang ki";
+//            urlUser = "https://icon-library.net/images/sign-up-icon-png/sign-up-icon-png-28.jpg";
+//        }
+//        Log.d("MMM", "addControls: " + labelUser);
+//        mangloaisp.add(4, new Loaisp(0, labelUser, urlUser));
+//
+//
+//        //
+//        String label;
+//        String urlIconLog;
+//        if(CheckStatusUser.isLogin){
+//            label = "Dang xuat";
+//            urlIconLog = "https://cdn1.iconfinder.com/data/icons/basic-ui-elements-coloricon/21/46-512.png";
+//        } else {
+//            label = "Dang nhap";
+//            urlIconLog = "https://previews.123rf.com/images/alexwhite/alexwhite1410/alexwhite141000976/32176618-login-red-modern-web-icon-on-white-background.jpg";
+//
+//        }
+//        mangloaisp.add(5, new Loaisp(0, label, urlIconLog));
 
         //
 
@@ -378,23 +390,25 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                    mangloaisp.add(1, new Loaisp(0, "Loại sp", "data:image/png;base64,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"));
 
-                    mangloaisp.add(2, new Loaisp(0, "Liên hệ", "https://phukiensinhnhat.vn/wp-content/uploads/2017/08/Phone-icon.jpg"));
-                    mangloaisp.add(3, new Loaisp(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNn5dHbPDP34Uch2WIpMd1DzJoYSKp7-XUCBe_4lK6pVB7qSCG"));
+                    mangloaisp.add(1, new Loaisp(0, "Loại sp","https://cdn3.iconfinder.com/data/icons/common-3/100/inbox-2_-512.png"));
+                    mangloaisp.add(2, new Loaisp(0, "Liên hệ", "https://raw.githubusercontent.com/google/material-design-icons/master/action/drawable-xhdpi/ic_perm_contact_calendar_black_48dp.png"));
+                    mangloaisp.add(3, new Loaisp(0, "Thông tin", "https://raw.githubusercontent.com/google/material-design-icons/master/action/drawable-xhdpi/ic_info_outline_black_48dp.png"));
 
                     if(CheckStatusUser.isLogin) {
-                        mangloaisp.add(4, new Loaisp(0, userNameMain, "https://cdn2.iconfinder.com/data/icons/business-charts-red/512/account_user_people_business_money_office_login-512.png"));
+                        mangloaisp.add(4, new Loaisp(0, "Tài khoản của tôi", "https://library.kissclipart.com/20180904/ese/kissclipart-user-icon-png-clipart-computer-icons-user-66fe7db07b02eb73.jpg"));
+//                        txtten.setText(userNameMain);
+//                        txtsdt.setText(CheckStatusUser.sdt);
                     }
                     else {
-                        mangloaisp.add(4, new Loaisp(0, "Đăng ký", "https://gamasonic.com/wp-content/uploads/2016/02/Product-Registration-Icon.jpg"));
+                        mangloaisp.add(4, new Loaisp(0, "Đăng ký", "https://icon-library.net/images/sign-up-icon-png/sign-up-icon-png-28.jpg"));
 
                     }
                     String label = "Đăng nhập";
-                    String urlIconLog = "https://previews.123rf.com/images/alexwhite/alexwhite1410/alexwhite141000976/32176618-login-red-modern-web-icon-on-white-background.jpg";
+                    String urlIconLog = "https://image.freepik.com/free-icon/login-symbol_318-9896.jpg";
                     if(CheckStatusUser.isLogin){
                         label = "Đăng xuất";
-                        urlIconLog = "https://cdn1.iconfinder.com/data/icons/basic-ui-elements-coloricon/21/46-512.png";
+                        urlIconLog = "https://cdn1.iconfinder.com/data/icons/materia-arrows-symbols-vol-3/24/018_128_arrow_exit_logout-512.png";
                     }
                     mangloaisp.add(5, new Loaisp(0, label, urlIconLog));
 
@@ -474,9 +488,14 @@ public class MainActivity extends AppCompatActivity {
         listViewManHinhChinh = findViewById(R.id.listviewManHinhChinh);
         drawerLayout = findViewById(R.id.drawerLayout);
 
+        txtten = findViewById(R.id.tennguoidungmanhinhchinh);
+        txtsdt = findViewById(R.id.sdtnguoidungmanhinhchinh);
+
+
+
         mangloaisp = new ArrayList<>();
 
-        mangloaisp.add(0, new Loaisp(0, "Trang chinh", "https://img.icons8.com/cotton/2x/home--v2.png"));
+        mangloaisp.add(0, new Loaisp(0, "Trang chính", "https://raw.githubusercontent.com/google/material-design-icons/master/action/drawable-xhdpi/ic_home_black_48dp.png"));
 
 
         loaispAdapter = new LoaispAdapter(mangloaisp, getApplicationContext());

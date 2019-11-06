@@ -27,8 +27,8 @@
                             <ImageView
                                 android:id="@+id/imageviewsp"
                                 android:layout_margin="5dp"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp" />
+                                android:layout_width="120dp"
+                                android:layout_height="120dp" />
 
                              <TextView
                                 android:id="@+id/textviewTensp"

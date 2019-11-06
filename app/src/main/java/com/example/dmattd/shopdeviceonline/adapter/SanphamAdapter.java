@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-// Sản phẩm nói chung
+// Sản phẩm mới nhất
 public class SanphamAdapter extends RecyclerView.Adapter<SanphamAdapter.ItemHolder> {
 
     Context context;
@@ -75,7 +75,7 @@ public class SanphamAdapter extends RecyclerView.Adapter<SanphamAdapter.ItemHold
                     Intent intent = new Intent(context, ChitietSanpham.class);
                     intent.putExtra("thongtinsp", arraySanpham.get(getPosition()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    CheckConnection.ShowToast_short(context, arraySanpham.get(getPosition()).getTensp());
+                   // CheckConnection.ShowToast_short(context, arraySanpham.get(getPosition()).getTensp());
                     context.startActivity(intent);
 
                 }

@@ -9,29 +9,32 @@
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp">
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbarChitietsp"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#797777"
-                app:title="Chi tiết sản phẩm"
-                app:titleTextColor="#FDFCFC">
 
-            </android.support.v7.widget.Toolbar>
-        </LinearLayout>
 
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbarChitietsp"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="#E04B41"                        app:title="Chi tiết sản phẩm"
+                        app:titleTextColor="#F000">
+
+                    </android.support.v7.widget.Toolbar>
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -80,7 +83,7 @@
                             android:id="@+id/btnThem"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="30dp"
                             android:text="Thêm vào giỏ hàng"
                             android:textColor="#050505"
                             android:textSize="15sp" />
@@ -110,13 +113,28 @@
                         android:text="abchd"
                         android:textColor="#050505"
                         android:textSize="20sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nhận xét"
-                        android:textColor="#CA0303"
-                        android:textSize="20sp" />
 
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đánh giá sản phẩm"
+                            android:textColor="#CA0303"
+                            android:textSize="20sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/xemthemdanhgia"-->
+<!--                            android:layout_marginLeft="80dp"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Xem thêm >"-->
+<!--                            android:textColor="#CA0303"-->
+<!--                            android:textSize="20sp" />-->
+
+                    </LinearLayout>
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycleViewComment"
                         android:layout_width="match_parent"

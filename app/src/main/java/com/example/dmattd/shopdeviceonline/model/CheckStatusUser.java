@@ -12,10 +12,18 @@ public class CheckStatusUser implements Serializable {
     public static ArrayList<LoaiSanPham> arrayListLoaiSanPham = new ArrayList<>();
 
     public static int idLoaiSanPham;
+    public static String tenLoaiSanPham;
 
     public static  String ten, sdt, diachi, matkhau;
 
     public static String idsanpham;
 
+    public static String diachigiaohang, hinhthucvanchuyen, hinhthucthanhtoan;
 
+    // xoa sp gio hang
+
+    public static int idspgiohangxoa;
+
+    //id don hang;
+    public static int idDonhang;
 }

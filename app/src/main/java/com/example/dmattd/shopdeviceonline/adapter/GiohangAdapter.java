@@ -1,6 +1,10 @@
 package com.example.dmattd.shopdeviceonline.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dmattd.shopdeviceonline.R;
+import com.example.dmattd.shopdeviceonline.activity.GiohangActivity;
 import com.example.dmattd.shopdeviceonline.activity.MainActivity;
+import com.example.dmattd.shopdeviceonline.model.CheckStatusUser;
 import com.example.dmattd.shopdeviceonline.model.Giohang;
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +33,7 @@ public class GiohangAdapter extends BaseAdapter {
         this.context = context;
         this.arrayGiohang = arrayGiohang;
     }
+
 
     @Override
     public int getCount() {
@@ -67,7 +75,7 @@ public class GiohangAdapter extends BaseAdapter {
           viewHolder = (ViewHolder) view.getTag();
       }
       //lay du lieu va gan vao layout
-        Giohang giohang = (Giohang) getItem(i);
+        final Giohang giohang = (Giohang) getItem(i);
         viewHolder.txttenspgh.setText(giohang.getTensp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         viewHolder.txtgiaspgh.setText("Giá: " +decimalFormat.format(giohang.getGiasp()) + "Đ");
@@ -82,11 +90,15 @@ public class GiohangAdapter extends BaseAdapter {
         if(soluonghang >=10){
             viewHolder.btntanggh.setVisibility(View.INVISIBLE);
             viewHolder.btngiamgh.setVisibility(view.VISIBLE);
-        }else if(soluonghang <=1){
+        }else if(soluonghang <1){
             viewHolder.btngiamgh.setVisibility(View.INVISIBLE);
         }else if(soluonghang >= 1){
             viewHolder.btngiamgh.setVisibility(View.VISIBLE);
             viewHolder.btntanggh.setVisibility(View.VISIBLE);
+        }
+
+        if(MainActivity.manggiohang.get(i).getSoluongsp() == 1){
+            MainActivity.manggiohang.get(i).setTonggia(MainActivity.manggiohang.get(i).getGiasp());
         }
 
         //set su kien cho nut tang
@@ -96,15 +108,19 @@ public class GiohangAdapter extends BaseAdapter {
             public void onClick(View view) {
                 int slmoinhat = Integer.parseInt(finalViewHolder.btnsoluonggh.getText().toString()) +1;
                 int slhientai = MainActivity.manggiohang.get(i).getSoluongsp();
-                long giaht = MainActivity.manggiohang.get(i).getGiasp();
+                long giasp = MainActivity.manggiohang.get(i).getGiasp();
 
                 MainActivity.manggiohang.get(i).setSoluongsp(slmoinhat);
-                long giamoinhat = (giaht * slmoinhat)/slhientai;
-                MainActivity.manggiohang.get(i).setGiasp(giamoinhat);
-                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                finalViewHolder.txtgiaspgh.setText("Giá: " +decimalFormat.format(giamoinhat) + "Đ");
+                long giamoinhat = (giasp * slmoinhat);
+                MainActivity.manggiohang.get(i).setTonggia(giamoinhat);
 
-                com.example.dmattd.shopdeviceonline.activity.Giohang.EventUtils();
+                Log.d("GIA", "Tên: " +MainActivity.manggiohang.get(i).getTensp()+",Giá: "
+                        +MainActivity.manggiohang.get(i).getGiasp()+ ",Số lượng: " +MainActivity.manggiohang.get(i).getSoluongsp()+
+                        ",Tổng: "+MainActivity.manggiohang.get(i).getTonggia() + ",gia ms nhat: " + giamoinhat);
+                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+//                finalViewHolder.txtgiaspgh.setText("Giá: " +decimalFormat.format(giamoinhat) + "Đ");
+
+                GiohangActivity.EventUtils();
                 if(slmoinhat >9 ){
                     finalViewHolder.btntanggh.setVisibility(View.VISIBLE);
                     finalViewHolder.btngiamgh.setVisibility(View.VISIBLE);
@@ -125,25 +141,51 @@ public class GiohangAdapter extends BaseAdapter {
             public void onClick(View view) {
                 int slmoinhat = Integer.parseInt(finalViewHolder.btnsoluonggh.getText().toString()) -1;
                 int slhientai = MainActivity.manggiohang.get(i).getSoluongsp();
-                long giaht = MainActivity.manggiohang.get(i).getGiasp();
+                final long giasp = MainActivity.manggiohang.get(i).getGiasp();
+                    if(slmoinhat>=1){
+                        MainActivity.manggiohang.get(i).setSoluongsp(slmoinhat);
+                        long giamoinhat = giasp * slmoinhat;
+                        MainActivity.manggiohang.get(i).setTonggia(giamoinhat);
+                        GiohangActivity.EventUtils();
+                        finalViewHolder.btntanggh.setVisibility(View.VISIBLE);
+                        finalViewHolder.btngiamgh.setVisibility(View.VISIBLE);
+                        finalViewHolder.btnsoluonggh.setText(String.valueOf(slmoinhat));
+                    }else {
+                        finalViewHolder.btntanggh.setVisibility(View.VISIBLE);
+                        finalViewHolder.btngiamgh.setVisibility(View.VISIBLE);
 
-                MainActivity.manggiohang.get(i).setSoluongsp(slmoinhat);
-                long giamoinhat = (giaht * slmoinhat)/slhientai;
-                MainActivity.manggiohang.get(i).setGiasp(giamoinhat);
-                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                finalViewHolder.txtgiaspgh.setText("Giá: " +decimalFormat.format(giamoinhat) + "Đ");
+                        finalViewHolder.btngiamgh.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(final View view) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
+                                builder.setTitle("Xác nhận xóa sản phẩm");
+                                builder.setMessage("Bạn có chắc muốn xóa sản phẩm này không?");
+                                builder.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int j) {
+                                        CheckStatusUser.idspgiohangxoa = MainActivity.manggiohang.get(i).getIdsp();
+                                        int abc = MainActivity.manggiohang.indexOf(CheckStatusUser.idspgiohangxoa);
+                                        Log.wtf("ii", ":" +abc);
+                                        MainActivity.manggiohang.remove(i);
+                                        Intent intent = new Intent(view.getContext(), GiohangActivity.class);
+                                        context.startActivity(intent);
 
-                com.example.dmattd.shopdeviceonline.activity.Giohang.EventUtils();
-                if(slmoinhat <2 ){
-                    finalViewHolder.btntanggh.setVisibility(View.VISIBLE);
-                    finalViewHolder.btngiamgh.setVisibility(View.INVISIBLE);
-                    finalViewHolder.btnsoluonggh.setText(String.valueOf(slmoinhat));
-                }else {
-                    finalViewHolder.btntanggh.setVisibility(View.VISIBLE);
-                    finalViewHolder.btngiamgh.setVisibility(View.VISIBLE);
-                    finalViewHolder.btnsoluonggh.setText(String.valueOf(slmoinhat));
+                                    }
+                                });
 
-                }
+
+                                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                });
+                                builder.show();
+                            }
+                        });
+
+                    }
+
+                //}
             }
         });
         return view;

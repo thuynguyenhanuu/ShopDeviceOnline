@@ -17,7 +17,7 @@
             android:layout_height="55dp">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbarManHinhChinh"
-                android:background="#D65E3B"
+                android:background="#E04B41"
                 app:title="Trang Chính"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize">
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:background="#D65E3B">
+                    android:background="#E04B41">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -72,8 +72,43 @@
             android:layout_gravity="start"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/nguoidungmanhinhchinh"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="vertical"
+                android:background="#E04B41">
+
+                <ImageView
+                    android:id="@+id/imgnguoidungmanhinhchinh"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/xyz"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/tennguoidungmanhinhchinh"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/sdtnguoidungmanhinhchinh"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#F0EFEF"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
             <ListView
                 android:id="@+id/listviewManHinhChinh"
+                android:layout_marginTop="180dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </ListView>

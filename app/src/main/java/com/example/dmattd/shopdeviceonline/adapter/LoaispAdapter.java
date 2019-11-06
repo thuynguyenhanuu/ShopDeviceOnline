@@ -1,13 +1,10 @@
 package com.example.dmattd.shopdeviceonline.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,7 +50,7 @@ public class LoaispAdapter extends BaseAdapter {
         if (viewHolder == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.dong_listview_loaisp, null);
+            view = inflater.inflate(R.layout.dong_menu_left, null);
 
             viewHolder.txtTenloaisp = view.findViewById(R.id.textviewLoaisp);
             viewHolder.imgLoaisp = view.findViewById(R.id.imageviewLoaisp);

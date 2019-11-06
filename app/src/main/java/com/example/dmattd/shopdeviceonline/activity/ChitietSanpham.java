@@ -11,12 +11,12 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dmattd.shopdeviceonline.R;
@@ -34,6 +33,7 @@ import com.example.dmattd.shopdeviceonline.model.CheckStatusUser;
 import com.example.dmattd.shopdeviceonline.model.Giohang;
 import com.example.dmattd.shopdeviceonline.model.Nhanxet;
 import com.example.dmattd.shopdeviceonline.model.Sanpham;
+import com.example.dmattd.shopdeviceonline.model.Traloinhanxet;
 import com.example.dmattd.shopdeviceonline.util.CheckConnection;
 import com.example.dmattd.shopdeviceonline.util.Server;
 import com.squareup.picasso.Picasso;
@@ -43,12 +43,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.example.dmattd.shopdeviceonline.model.CheckStatusUser.diachi;
-import static com.example.dmattd.shopdeviceonline.model.CheckStatusUser.sdt;
 
 public class ChitietSanpham extends AppCompatActivity {
 
@@ -70,7 +69,14 @@ public class ChitietSanpham extends AppCompatActivity {
     int idnguoinx = 0;
     String tennguoinx = "";
     String noidungnx = "";
+    String timenx = "";
     int idXoa = 0;
+
+
+    int repnumber = 0;
+
+    // check noidung hop le
+    boolean hople = false;
 
     ArrayList<Nhanxet> mangnhanxet;
     NhanxetAdapter nhanxetAdapter;
@@ -86,6 +92,7 @@ public class ChitietSanpham extends AppCompatActivity {
         GetInformation();
         GetNhanxet();
 
+
         CatchEventSpinner();
 
         EventButton();
@@ -94,89 +101,87 @@ public class ChitietSanpham extends AppCompatActivity {
         ThemNhanXet();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        AnhXa();
+        ActionToolbar();
+        GetInformation();
+        GetNhanxet();
+        CatchEventSpinner();
+        EventButton();
+        ThemNhanXet();
+    }
 
-
-    private void ThemNhanXet() {
-
-        btnThemnx.setOnClickListener(new View.OnClickListener() {
-
-            String txtnoidungnx = "";
-
-           // String txtnoidung2 = edtVietnx.getText().toString();
-
-            @Override
-            public void onClick(View view) {
-
-                txtnoidungnx = edtVietnx.getText().toString().trim();
-                Log.d("NXX", "Nội dung 1: " + txtnoidungnx);
-//                Log.d("NXX", "Nội dung 2: " + txtnoidung2);
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdanthemnhanxet, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("NXX", "viết nx" + response);
-                        if(response.equals("invalidcontent")){
-                            Toast.makeText(getApplicationContext(), "Nội dung không hợp lệ", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "Viết comment thành công", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("onErrorResponse", "onErrorResponse: lỗi viết nx");
-
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String, String> hashMap = new HashMap<String, String>();
-                        hashMap.put("idsp", CheckStatusUser.idsanpham);
-                        hashMap.put("idnguoidung", String.valueOf(CheckStatusUser.idNgdung));
-                        hashMap.put("noidung", txtnoidungnx);
-                        return hashMap;
-                    }
-                };
-                requestQueue.add(stringRequest);
-
-                mangnhanxet.add(new Nhanxet(CheckStatusUser.idNgdung,CheckStatusUser.ten, txtnoidungnx));
-                Log.d("NXX", "teen nguoi viet nx" + CheckStatusUser.ten);
-
-                edtVietnx.setText("");
-                nhanxetAdapter.notifyDataSetChanged();
+    private void GetTraloiNhanxet(final int idnhanxet) {
+        Log.wtf("NX", "idnx  " + idnhanxet);
 
             }
-        });
-
-        //ABCNhanxet();
-    }
 
     private void GetNhanxet() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdannhanxet, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdanngetnhanxet, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("NXX", "abc" + response);
                 if(response != null){
-                    //int id = 0;
-
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         for(int i = 0; i < jsonArray.length(); i++){
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                             idnhanxet = jsonObject.getInt("id");
-                            Log.d("NX", "id nhan xet: " +idnhanxet);
+                            Log.wtf("NX", "id nhan xet: " +idnhanxet);
+                            final int idnhanxeti = jsonObject.getInt("id");
+                            Log.wtf("NX", "id nhan xet: " +idnhanxet);
+
 
                             idnguoinx = jsonObject.getInt("idnguoidung");
-                            Log.d("NX", "idNguoi nx: " +idnguoinx);
+                            Log.wtf("NX", "idNguoi nx: " +idnguoinx);
 
                             noidungnx = jsonObject.getString("noidung");
                             tennguoinx = jsonObject.getString("ten");
-                            mangnhanxet.add(new Nhanxet(idnhanxet,idnguoinx, noidungnx, tennguoinx));
-                            nhanxetAdapter.notifyDataSetChanged();
+                            timenx = jsonObject.getString("time");
+                            Log.wtf("TIME", "time: " +timenx);
 
+                            //đếm số rep
+                            RequestQueue requestQueue2 = Volley.newRequestQueue(getApplicationContext());
+                            StringRequest stringRequest2 = new StringRequest(Request.Method.POST, Server.Duongdangettraloinhanxet, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response2) {
+                                    if(response2 != null){
+                                        try {
+                                            JSONArray jsonArray = new JSONArray(response2);
+                                            Log.wtf("NUM", "response2: " +response2 );
+                                            Log.wtf("NUM", "response2: " +jsonArray );
+
+                                            int numberrep = jsonArray.length();
+                                            Log.wtf("NUM", "num rep: " +numberrep +"idcmt:" +idnhanxeti);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            }){
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    HashMap<String, String> hashMap = new HashMap<String, String>();
+                                    hashMap.put("id", String.valueOf(idnhanxeti));
+                                    return hashMap;
+                                }
+                            };
+                            requestQueue2.add(stringRequest2);
+
+
+                            mangnhanxet.add(new Nhanxet(idnhanxet,idnguoinx, noidungnx, tennguoinx, timenx));
+                            nhanxetAdapter.notifyDataSetChanged();
 
                         }
                     } catch (JSONException e) {
@@ -198,8 +203,79 @@ public class ChitietSanpham extends AppCompatActivity {
                 return hashMap;
             }
         };
+
         requestQueue.add(stringRequest);
     }
+
+    private void ThemNhanXet() {
+
+
+        btnThemnx.setOnClickListener(new View.OnClickListener() {
+
+            String txtnoidungnx = "";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentDateandTime = sdf.format(new Date());
+
+
+
+            @Override
+            public void onClick(View view) {
+
+                txtnoidungnx = edtVietnx.getText().toString().trim();
+                timenx = currentDateandTime;
+                Log.d("NXX", "Nội dung 1: " + txtnoidungnx);
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.Duongdanthemnhanxet, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.equals("invalidcontent")){
+                            hople = false;
+                            Toast.makeText(getApplicationContext(), "Nội dung từ 1 đến 500 kí tự ", Toast.LENGTH_SHORT).show();
+                        }else{
+                            hople = true;
+                            if(hople){
+                                mangnhanxet.add(new Nhanxet(CheckStatusUser.idNgdung, txtnoidungnx, CheckStatusUser.ten, currentDateandTime));
+                                Log.d("NXX", "teen nguoi viet nx" + CheckStatusUser.ten);
+                                edtVietnx.setText("");
+                                nhanxetAdapter.notifyDataSetChanged();
+
+
+                            }
+                            Toast.makeText(getApplicationContext(), "Viết comment thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("onErrorResponse", "onErrorResponse: lỗi viết nx");
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String, String> hashMap = new HashMap<String, String>();
+                        hashMap.put("idsp", String.valueOf(CheckStatusUser.idsanpham));
+                        hashMap.put("idnguoidung", String.valueOf(CheckStatusUser.idNgdung));
+                        hashMap.put("noidung", txtnoidungnx);
+                        return hashMap;
+                    }
+                };
+
+                requestQueue.add(stringRequest);
+
+
+
+//                mangnhanxet.add(new Nhanxet(CheckStatusUser.idNgdung, txtnoidungnx, CheckStatusUser.ten));
+//                Log.d("NXX", "teen nguoi viet nx" + CheckStatusUser.ten);
+//                edtVietnx.setText("");
+//                nhanxetAdapter.notifyDataSetChanged();
+
+
+            }
+        });
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -213,7 +289,7 @@ public class ChitietSanpham extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menugiohang:
                 if(CheckStatusUser.isLogin) {
-                    Intent intent = new Intent(getApplicationContext(), com.example.dmattd.shopdeviceonline.activity.Giohang.class);
+                    Intent intent = new Intent(getApplicationContext(), GiohangActivity.class);
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(getApplicationContext(), DangnhapActivity.class);
@@ -241,23 +317,24 @@ public class ChitietSanpham extends AppCompatActivity {
                                     if (MainActivity.manggiohang.get(i).getSoluongsp() >= 10) {
                                         MainActivity.manggiohang.get(i).setSoluongsp(10);
                                     }
-                                    MainActivity.manggiohang.get(i).setGiasp(giachitiet * MainActivity.manggiohang.get(i).getSoluongsp());
+                                  MainActivity.manggiohang.get(i).setTonggia(giachitiet * MainActivity.manggiohang.get(i).getSoluongsp());
                                     exites = true;
                                 }
                             }
                             if (!exites) {
                                 int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
                                 long giamoi = soluong * giachitiet;
-                                MainActivity.manggiohang.add(new Giohang(id, tenchitiet, giamoi, hinhanhchitiet, soluong));
+                                Log.d("tongtien", "onClick: " + giamoi);
+                                MainActivity.manggiohang.add(new Giohang(id, tenchitiet,giachitiet, hinhanhchitiet, soluong, giamoi));
                             }
                         } else {
                             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
                             long giamoi = soluong * giachitiet;
-                            MainActivity.manggiohang.add(new Giohang(id, tenchitiet, giamoi, hinhanhchitiet, soluong));
+                            MainActivity.manggiohang.add(new Giohang(id, tenchitiet, giachitiet, hinhanhchitiet, soluong, giamoi));
 
 
                         }
-                        Intent intent = new Intent(getApplicationContext(), com.example.dmattd.shopdeviceonline.activity.Giohang.class);
+                        Intent intent = new Intent(getApplicationContext(), GiohangActivity.class);
                         startActivity(intent);
 
                     }else {
@@ -282,7 +359,9 @@ public class ChitietSanpham extends AppCompatActivity {
         id = sanpham.getId();
 
         CheckStatusUser.idsanpham = String.valueOf(id);
-        Log.d("NX", "id: " +CheckStatusUser.idsanpham);
+        Log.wtf("NX", "id: " +id);
+
+        Log.wtf("NX", "idsua: " +CheckStatusUser.idsanpham);
 
 
         tenchitiet = sanpham.getTensp();
@@ -340,7 +419,7 @@ public class ChitietSanpham extends AppCompatActivity {
         nhanxetAdapter.setOnItemClickListener(new RecycleviewItemClickListener() {
             @Override
             public void onItemClick(View view, int i) {
-                Toast.makeText(getApplicationContext(), "short", Toast.LENGTH_SHORT ).show();
+               // Toast.makeText(getApplicationContext(), "short", Toast.LENGTH_SHORT ).show();
             }
 
             @Override
@@ -349,15 +428,11 @@ public class ChitietSanpham extends AppCompatActivity {
                 idnguoinx = mangnhanxet.get(i).getIdnguoinx();
                 idnhanxet = mangnhanxet.get(i).getId();
                 noidungnx = mangnhanxet.get(i).getNoidungnx();
+                timenx = mangnhanxet.get(i).getTime();
                 idXoa = i;
 
                 Log.d("ID", "id mangnx " );
-                Toast.makeText(getApplicationContext(), "abc"+ idXoa, Toast.LENGTH_SHORT).show();
-
-
-                //Toast.makeText(getApplicationContext(), "long" + idnguoinx + "....." + CheckStatusUser.idNgdung, Toast.LENGTH_SHORT ).show();
-
-
+                //Toast.makeText(getApplicationContext(), "abc"+ idXoa, Toast.LENGTH_SHORT).show();
                 view.showContextMenu();
 
             }
@@ -419,11 +494,11 @@ public class ChitietSanpham extends AppCompatActivity {
                 nhanxetAdapter.notifyDataSetChanged();
                 break;
             case R.id.suacmt:
+                Log.wtf("ND", "suacmt:" + noidungnx + " " + idnhanxet);
+
                 Intent intent = new Intent(this, SuaCommentActivity.class);
                 intent.putExtra("suanhanxet", noidungnx);
                 intent.putExtra("id", idnhanxet);
-                Log.d("ND", "" + noidungnx + " " + idnhanxet);
-
                 startActivity(intent);
                 nhanxetAdapter.notifyDataSetChanged();
                 break;

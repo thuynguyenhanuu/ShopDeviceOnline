@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,7 +37,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.LogRecord;
 
 
 public class Sanpham1Activity extends AppCompatActivity {
@@ -48,6 +46,7 @@ public class Sanpham1Activity extends AppCompatActivity {
     ArrayList<Sanpham> mangsp1;
 
     int idloaisp1 = CheckStatusUser.idLoaiSanPham;
+    String tenloaisp1 = CheckStatusUser.tenLoaiSanPham;
     int page = 1;
 
     View footerview;
@@ -61,7 +60,7 @@ public class Sanpham1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_sanpham1);
         Anhxa();
         if(CheckConnection.haveNetworkConnection(getApplicationContext())){
-            GetIdLoaisp();
+            GetThongtinLoaisp();
             ActionToolBar();
             Getdata(page);
             LoadMoreData();
@@ -83,7 +82,7 @@ public class Sanpham1Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menugiohang:
-                Intent intent = new Intent(getApplicationContext(), com.example.dmattd.shopdeviceonline.activity.Giohang.class);
+                Intent intent = new Intent(getApplicationContext(), GiohangActivity.class);
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -170,7 +169,7 @@ public class Sanpham1Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> param = new HashMap<String, String>();
-               param.put("id_loaisp", String.valueOf(idloaisp1));
+                 param.put("id_loaisp", String.valueOf(idloaisp1));
                 return param;
             }
         };
@@ -189,13 +188,16 @@ public class Sanpham1Activity extends AppCompatActivity {
         });
     }
 
-
-    private void GetIdLoaisp() {
+    // get id và tên loại sp
+    private void GetThongtinLoaisp() {
         idloaisp1 = getIntent().getIntExtra("id_loaisp", -1);
+        tenloaisp1 = getIntent().getStringExtra("ten_loaisp");
+
     }
 
     private void Anhxa() {
         toolbarsp = findViewById(R.id.toolbarsp1);
+        toolbarsp.setTitle(CheckStatusUser.tenLoaiSanPham);
         listViewsp1 = findViewById(R.id.listviewsp1);
         mangsp1 = new ArrayList<>();
         sanpham1Adapter = new Sanpham1Adapter(getApplicationContext(), mangsp1);
